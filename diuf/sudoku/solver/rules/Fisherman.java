@@ -24,6 +24,7 @@ import diuf.sudoku.tools.*;
 public class Fisherman implements IndirectHintProducer {
 
     private final int degree;
+	private SetEngine setengine = new SetEngine();
 
 
     public Fisherman(int degree) {
@@ -67,7 +68,7 @@ public class Fisherman implements IndirectHintProducer {
                     BitSet[] positions = new BitSet[degree];
                     for (int i = 0; i < degree; i++)
                         positions[i] = parts[indexes[i]].getPotentialPositions(value);
-                    BitSet common = CommonTuples.searchCommonTuple(positions, degree);
+                    BitSet common = setengine.searchRegular(positions, degree);
 
                     if (common != null) {
                         // Potential hint found

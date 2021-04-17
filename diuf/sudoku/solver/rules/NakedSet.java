@@ -19,6 +19,7 @@ import diuf.sudoku.tools.*;
 public class NakedSet implements IndirectHintProducer {
 
     private int degree;
+	private SetEngine setengine = new SetEngine();
 
     public NakedSet(int degree) {
 //a     assert degree > 1 && degree <= 7;
@@ -59,7 +60,7 @@ public class NakedSet implements IndirectHintProducer {
 
                     // Look for a common tuple of potential values, with same degree
                     BitSet commonPotentialValues =
-                        CommonTuples.searchCommonTuple(potentialValues, degree);
+                        setengine.searchRegular(potentialValues, degree);
                     if (commonPotentialValues != null) {
                         // Potential hint found
                         IndirectHint hint = createValueUniquenessHint(region, cells, commonPotentialValues);

@@ -18,6 +18,7 @@ import diuf.sudoku.tools.*;
  */
 public class BivalueUniversalGrave implements IndirectHintProducer {
 
+	private SetEngine setengine = new SetEngine();
     private final Grid temp = new Grid();
 
     public void getHints(Grid grid, HintsAccumulator accu) throws InterruptedException {
@@ -201,7 +202,7 @@ public class BivalueUniversalGrave implements IndirectHintProducer {
                             // Ensure that all values of the naked set are covered by non-bug cells
                             if (otherCommon.cardinality() == degree) {
                                 // Search for a naked set
-                                BitSet nakedSet = CommonTuples.searchCommonTuple(potentials, degree);
+                                BitSet nakedSet = setengine.searchRegular(potentials, degree);
                                 if (nakedSet != null) {
                                     // One of bugCells form a naked set with nakedCells[]
                                     // Look for cells not part of the naked set, sharing the region

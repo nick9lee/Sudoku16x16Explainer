@@ -22,6 +22,7 @@ public class HiddenSet implements IndirectHintProducer {
 
     private final int degree;
     private final boolean isDirect;
+	private SetEngine setengine = new SetEngine();
 
 
     public HiddenSet(int degree, boolean isDirect) {
@@ -66,7 +67,7 @@ public class HiddenSet implements IndirectHintProducer {
 
                     // Look for a common tuple of potential positions, with same degree
                     BitSet commonPotentialPositions =
-                        CommonTuples.searchCommonTuple(potentialIndexes, degree);
+                        setengine.searchRegular(potentialIndexes, degree);
                     if (commonPotentialPositions != null) {
                         // Hint found
                         IndirectHint hint = createHiddenSetHint(region, values, commonPotentialPositions);
