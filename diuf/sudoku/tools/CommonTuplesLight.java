@@ -4,7 +4,7 @@ package diuf.sudoku.tools;
 import java.util.*;
 
 
-public class CommonTuplesLight {
+public class CommonTuplesLight implements CommonTuples {
 
     public BitSet searchCommonTuple(BitSet[] candidates, int degree) {
         BitSet result = new BitSet(16);
