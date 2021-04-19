@@ -129,7 +129,13 @@ public class BivalueUniversalGrave implements IndirectHintProducer {
         BitSet removable = (BitSet)bugCell.getPotentialValues().clone();
         removable.andNot(extraValues);
         removablePotentials.put(bugCell, removable);
-        IndirectHint hint = new Bug1Hint(this, removablePotentials, bugCell, extraValues);
+        int bitInt = 0;
+        for(int i = 0; i < 32; i++) {
+        	if (extraValues.get(i)) {
+        		bitInt |= (1 << i);
+        	}
+        }
+        IndirectHint hint = BugHintProducer.getFactory(true).getBugHint(1, this, removablePotentials, (new Cell[]{bugcell}, bitInt))
         accu.add(hint);
     }
 
@@ -147,7 +153,7 @@ public class BivalueUniversalGrave implements IndirectHintProducer {
                 // Create hint
                 Cell[] arrCells = new Cell[bugCells.size()];
                 bugCells.toArray(arrCells);
-                IndirectHint hint = new Bug2Hint(this, removablePotentials, arrCells, value);
+                IndirectHint hint = BugHintProducer.getFactory(true).getBugHint(2, this, removablePotentials, arrCells, value)
                 accu.add(hint);
             }
         }
@@ -223,9 +229,14 @@ public class BivalueUniversalGrave implements IndirectHintProducer {
                                             // Create hint
                                             Cell[] arrCells = new Cell[bugCells.size()];
                                             bugCells.toArray(arrCells);
-                                            IndirectHint hint = new Bug3Hint(this, removablePotentials, arrCells,
-                                                    nakedCells, extraValues, allExtraValues, nakedSet, region);
-                                            accu.add(hint);
+                                            int bitInt = 0;
+                                            for(int i = 0; i < 32; i++) {
+                                            	if (extraValues.get(i)) {
+                                            		bitInt |= (1 << i);
+                                            	}
+                                            }
+                                            Indirect hint = BugHintProducer.getFactory(false).getBugHint(3, this, removablePotentials, arrcells, bitInt,
+                                            		nakedCells, allExtraValues, nakedSet, region);
                                         }
                                     } // if (!erasable.isEmpty())
                                 } // if (nakedSet != null)
@@ -276,8 +287,8 @@ public class BivalueUniversalGrave implements IndirectHintProducer {
                 b2.andNot(extraValues.get(c2));
                 b2.clear(value);
                 removablePotentials.put(c2, b2);
-                IndirectHint hint = new Bug4Hint(this, removablePotentials, c1, c2, extraValues,
-                        allExtraValues, value, region);
+                Indirecthint hint = BugHintProducer.getFactory(false).getBugHint(4, this, removablePotentials, c1, value, c2,
+                		extraValues, allExtraValues, value, region);
                 accu.add(hint);
             }
         }
