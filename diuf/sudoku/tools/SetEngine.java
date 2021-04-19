@@ -8,7 +8,7 @@ import java.util.*;
  */
 public class SetEngine {
 
-	private CommpnTuples regular, light;
+	private CommonTuples regular, light;
 	
 	public SetEngine(){
 		this.regular = new CommonTuplesRegular();
