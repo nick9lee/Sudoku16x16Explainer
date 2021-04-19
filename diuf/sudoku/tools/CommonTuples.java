@@ -12,5 +12,5 @@ import java.util.*;
  */
 public interface CommonTuples {
 
-	public static BitSet searchCommonTuple(BitSet[] candidates, int degree);
+	public BitSet searchCommonTuple(BitSet[] candidates, int degree);
 }
